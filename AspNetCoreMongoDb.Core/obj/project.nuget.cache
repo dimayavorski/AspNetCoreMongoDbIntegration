@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "bhzYg5FoXVD22siNIHhXfNViDJ//887P4FFaOKpMo2y/366nkjX+BGrrvGa82M3cKOaTAkMaI8+tkgMuAKgsIQ==",
+  "success": true,
+  "projectFilePath": "D:\\Programming\\AspNetCoreMongodb\\AspNetCoreMongoDb.Core\\AspNetCoreMongoDb.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dmitr\\.nuget\\packages\\mongodb.bson\\2.19.1\\mongodb.bson.2.19.1.nupkg.sha512",
+    "C:\\Users\\dmitr\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
