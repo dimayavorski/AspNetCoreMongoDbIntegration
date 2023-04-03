@@ -20,5 +20,7 @@ namespace AspNetCoreMongoDb.Infrastructure.Repositories
         public Task<IReadOnlyList<Course>> GetAllAsync()
             => _repository.FindAsync(e => true);
 
+        public async Task<Course> GetByIdAsync(string id)
+            => await _repository.GetAsync(id);
     }
 }

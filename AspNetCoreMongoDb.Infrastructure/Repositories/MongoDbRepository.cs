@@ -17,16 +17,21 @@ namespace AspNetCoreMongoDb.Infrastructure
         }
         public IMongoCollection<TEntity> Collection { get; } = default!;
 
-        public Task AddAsync(TEntity entity)
-            => Collection.InsertOneAsync(entity);
+        public async Task AddAsync(TEntity entity)
+            => await Collection.InsertOneAsync(entity);
 
-        public Task DeleteAsync(TIdentifiable id)
-            => Collection.DeleteOneAsync(e => e.Id.Equals(id));
+        public async Task DeleteAsync(TIdentifiable id)
+            => await Collection.DeleteOneAsync(e => e.Id.Equals(id));
+        
 
         public Task UpdateAsync(TEntity entity)
             => Collection.ReplaceOneAsync(e => e.Id.Equals(entity.Id), entity);
 
         public async Task<IReadOnlyList<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
-        => await Collection.Find(predicate).ToListAsync();
+            => await Collection.Find(predicate).ToListAsync();
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
+            => await Collection.Find(predicate).SingleOrDefaultAsync();
+        public async Task<TEntity> GetAsync(TIdentifiable id)
+            => await GetAsync(e => e.Id.Equals(id));
     }
 }

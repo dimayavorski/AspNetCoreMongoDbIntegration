@@ -9,6 +9,7 @@ namespace AspNetCoreMongoDb.Application.Interfaces
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(TIdentifiable id);
+        Task<TEntity> GetAsync(TIdentifiable id);
         Task<IReadOnlyList<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
     }
     

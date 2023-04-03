@@ -1,6 +1,8 @@
-﻿using AspNetCoreMongodb;
+﻿using Amazon.Runtime.Internal;
+using AspNetCoreMongodb;
 using AspNetCoreMongoDb.Application.Interfaces;
 using AspNetCoreMongoDb.Infrastructure.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
@@ -11,14 +13,18 @@ namespace AspNetCoreMongoDb.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddTransient<ICourseRepository, CourseRepository>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
             return services;
         }
-        public static IServiceCollection AddMongo(this IServiceCollection services, Action<MongoDbOptions> mongoDbOptionsAction)
+        public static IServiceCollection AddMongo(this IServiceCollection services, IConfiguration configuration)
         {
-            var mongoDbOptions = new MongoDbOptions();
-            mongoDbOptionsAction(mongoDbOptions);
-
-            services.AddSingleton<MongoDbOptions>(mongoDbOptions);
+            var section = configuration.GetSection(MongoDbOptions.Name);
+            var options = new MongoDbOptions
+            {
+                ConnectionString = section.GetSection("ConnectionString").Value,
+                Database = section.GetSection("Database").Value
+            };
+            services.AddSingleton<MongoDbOptions>(options);
             services.AddSingleton<IMongoClient>(sp =>
             {
                 var options = sp.GetRequiredService<MongoDbOptions>();
